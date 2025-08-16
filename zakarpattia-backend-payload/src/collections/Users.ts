@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { Roles, RoleLabels } from '../common/constants/roles.constant'
 
-import { onlyAdmin } from '@/common/utils/rolesChecker.util'
+import { onlyAdmin } from '../common/utils/accessChecker.util'
 
 export const Users: CollectionConfig = {
   slug: 'users',
