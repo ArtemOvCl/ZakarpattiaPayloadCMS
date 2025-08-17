@@ -1,6 +1,8 @@
 import { Access } from "payload";
+
 import { PayloadUser } from "../types/user.type";
-import { Role, Roles } from "../constants/roles.constant";
+
+import {Roles, Role} from "../constants/roles.constant";
 
 export const hasRole =
   (role: Role): Access =>

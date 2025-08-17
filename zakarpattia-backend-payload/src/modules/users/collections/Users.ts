@@ -1,11 +1,15 @@
 import type { CollectionConfig } from 'payload'
 
-import { Roles, RoleLabels } from '../common/constants/roles.constant'
+import { Roles, RoleLabels } from '../../shared/constants/roles.constant'
 
-import { onlyAdmin } from '../common/utils/accessChecker.util'
+import { onlyAdmin } from '../../shared/utils/accessChecker.util'
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  labels: {
+    singular: 'Користувач',
+    plural: 'Користувачі',
+  },
   admin: {
     useAsTitle: 'email',
   },
@@ -19,6 +23,7 @@ export const Users: CollectionConfig = {
   fields: [
     {
     name: 'role',
+    label: 'Роль',
     type: 'select',
     required: true,
     defaultValue: Roles.Editor,

@@ -7,8 +7,10 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
+import { uk } from '@payloadcms/translations/languages/uk';
+import { en } from '@payloadcms/translations/languages/en';
+
+import { Users } from './modules/users/collections/Users'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -20,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -30,6 +32,10 @@ export default buildConfig({
     url: process.env.DATABASE_URI || '',
   }),
   sharp,
+  i18n: {
+    fallbackLanguage: 'uk',
+    supportedLanguages: { uk, en },
+  },
   plugins: [
     payloadCloudPlugin(),
     // storage-adapter-placeholder
