@@ -4,8 +4,12 @@ import { Roles, RoleLabels } from '../../shared/constants/roles.constant'
 
 import { onlyAdmin } from '../../shared/utils/accessChecker.util'
 
+import { cannotCreateUsersIfTwoExist, cannotEditSelf } from '../utils/user-access.util'
+
+import { USER_KEY } from '../constants/user.constants'
+
 export const Users: CollectionConfig = {
-  slug: 'users',
+  slug: USER_KEY,
   labels: {
     singular: 'Користувач',
     plural: 'Користувачі',
@@ -16,8 +20,11 @@ export const Users: CollectionConfig = {
   auth: true,
   access: {
     read: onlyAdmin,
-    create: onlyAdmin,
-    update: onlyAdmin,
+    create: cannotCreateUsersIfTwoExist,
+    update: async ({ req, id }) => {
+
+      return (await cannotEditSelf({ req, id })) && onlyAdmin({ req });
+    },
     delete: onlyAdmin,
   },
   fields: [
