@@ -1,5 +1,15 @@
 import type { CollectionConfig } from 'payload'
 
+
+import { lexicalEditor, 
+         FixedToolbarFeature, 
+         InlineToolbarFeature,
+         BlocksFeature } from '@payloadcms/richtext-lexical'
+
+import { ImageWithCaption } from '../shared/blocks/imageWithCaption.block'
+import { VideoBlock } from '../shared/blocks/video.block'
+import { GalleryBlock } from '../shared/blocks/gallery.block'
+
 export const News: CollectionConfig = {
   slug: 'news',
   labels: {
@@ -8,6 +18,7 @@ export const News: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
+    defaultColumns: ['title', 'headerImage', 'createdAt'],
   },
   access: {
     read: () => true
@@ -31,6 +42,20 @@ export const News: CollectionConfig = {
       label: 'Контент',
       type: 'richText',
       required: true,
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+        ...defaultFeatures,
+        BlocksFeature({
+            blocks: [
+              ImageWithCaption,
+              VideoBlock,
+              GalleryBlock
+            ],
+          }),
+        InlineToolbarFeature(),
+        FixedToolbarFeature(),
+    ],
+  }),
     },
   ],
 }
