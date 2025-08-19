@@ -11,6 +11,8 @@ import { uk } from '@payloadcms/translations/languages/uk';
 import { en } from '@payloadcms/translations/languages/en';
 
 import { Users } from './modules/users/collections/Users'
+import { Media } from './modules/media/Media'
+import { News } from './modules/news/News'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,7 +24,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users],
+  collections: [Users, Media, News],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
