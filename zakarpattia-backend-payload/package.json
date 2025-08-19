@@ -29,6 +29,7 @@
     "graphql": "^16.8.1",
     "next": "15.4.4",
     "payload": "3.52.0",
+    "payload-plugin-lexical": "^0.6.6",
     "react": "19.1.0",
     "sharp": "0.34.2"
   },

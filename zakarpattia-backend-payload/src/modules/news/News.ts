@@ -1,28 +1,18 @@
 import type { CollectionConfig } from 'payload'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
+import { customRichTextFeatures } from '../shared/configuration/custom-editor'
 
-import { lexicalEditor, 
-         FixedToolbarFeature, 
-         InlineToolbarFeature,
-         BlocksFeature } from '@payloadcms/richtext-lexical'
-
-import { ImageWithCaption } from '../shared/blocks/imageWithCaption.block'
-import { VideoBlock } from '../shared/blocks/video.block'
-import { GalleryBlock } from '../shared/blocks/gallery.block'
+const NEWS_SLUG = 'news'
 
 export const News: CollectionConfig = {
-  slug: 'news',
-  labels: {
-    singular: 'Новина',
-    plural: 'Новини',
-  },
+  slug: NEWS_SLUG,
+  labels: { singular: 'Новина', plural: 'Новини' },
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'headerImage', 'createdAt'],
   },
-  access: {
-    read: () => true
-  },
+  access: { read: () => true },
   fields: [
     {
       name: 'headerImage',
@@ -43,19 +33,8 @@ export const News: CollectionConfig = {
       type: 'richText',
       required: true,
       editor: lexicalEditor({
-        features: ({ defaultFeatures }) => [
-        ...defaultFeatures,
-        BlocksFeature({
-            blocks: [
-              ImageWithCaption,
-              VideoBlock,
-              GalleryBlock
-            ],
-          }),
-        InlineToolbarFeature(),
-        FixedToolbarFeature(),
-    ],
-  }),
+        features: customRichTextFeatures,
+      }),
     },
   ],
 }

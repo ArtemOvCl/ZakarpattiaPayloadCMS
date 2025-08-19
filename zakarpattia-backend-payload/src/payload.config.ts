@@ -7,6 +7,8 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
+import { LexicalPlugin } from 'payload-plugin-lexical';
+
 import { uk } from '@payloadcms/translations/languages/uk';
 import { en } from '@payloadcms/translations/languages/en';
 
@@ -39,7 +41,6 @@ export default buildConfig({
     supportedLanguages: { uk, en },
   },
   plugins: [
-    payloadCloudPlugin(),
-    // storage-adapter-placeholder
+    payloadCloudPlugin()
   ],
 })

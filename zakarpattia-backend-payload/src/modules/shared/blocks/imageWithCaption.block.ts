@@ -20,23 +20,6 @@ export const ImageWithCaption: Block = {
       name: 'caption',
       type: 'text',
       required: false,
-    },
-    {
-      name: 'position',
-      type: 'select',
-      options: [
-        { label: 'Full width', value: 'full' },
-        { label: 'Left', value: 'left' },
-        { label: 'Right', value: 'right' },
-      ],
-      defaultValue: 'full',
-    },
-    {
-      name: 'size',
-      type: 'number',
-      min: 10,
-      max: 100,
-      defaultValue: 100, 
-    },
+    }
   ],
 }
