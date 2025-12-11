@@ -7,7 +7,6 @@ import {
   BoldFeature,
   ItalicFeature,
   UnderlineFeature,
-  TextStateFeature,
   OrderedListFeature,
   UnorderedListFeature,
   BlockquoteFeature,

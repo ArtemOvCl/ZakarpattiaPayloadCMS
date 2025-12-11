@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     news: News;
+    'news-categories': NewsCategory;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -79,6 +80,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
+    'news-categories': NewsCategoriesSelect<false> | NewsCategoriesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -167,6 +169,12 @@ export interface News {
   id: string;
   headerImage: string | Media;
   title: string;
+  /**
+   * Автоматично генерується з назви
+   */
+  slug: string;
+  category: string | NewsCategory;
+  featured?: boolean | null;
   content: {
     root: {
       type: string;
@@ -182,6 +190,20 @@ export interface News {
     };
     [k: string]: unknown;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-categories".
+ */
+export interface NewsCategory {
+  id: string;
+  name: string;
+  /**
+   * Автоматично генерується з назви
+   */
+  slug: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -203,6 +225,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'news';
         value: string | News;
+      } | null)
+    | ({
+        relationTo: 'news-categories';
+        value: string | NewsCategory;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -294,7 +320,20 @@ export interface MediaSelect<T extends boolean = true> {
 export interface NewsSelect<T extends boolean = true> {
   headerImage?: T;
   title?: T;
+  slug?: T;
+  category?: T;
+  featured?: T;
   content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-categories_select".
+ */
+export interface NewsCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }

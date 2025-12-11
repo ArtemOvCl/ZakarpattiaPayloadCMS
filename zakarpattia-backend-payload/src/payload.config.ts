@@ -7,14 +7,13 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { LexicalPlugin } from 'payload-plugin-lexical';
-
 import { uk } from '@payloadcms/translations/languages/uk';
 import { en } from '@payloadcms/translations/languages/en';
 
 import { Users } from './modules/users/collections/Users'
 import { Media } from './modules/media/Media'
 import { News } from './modules/news/News'
+import { NewsCategories } from './modules/news/NewsCategories'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, News],
+  collections: [Users, Media, News, NewsCategories],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
