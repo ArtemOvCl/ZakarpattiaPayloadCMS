@@ -33,6 +33,7 @@ export const News: CollectionConfig = {
       label: 'Назва новини',
       type: 'text',
       required: true,
+      unique: true,
     },
     {
       name: 'slug',

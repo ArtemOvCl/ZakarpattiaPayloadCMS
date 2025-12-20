@@ -1,4 +1,3 @@
-// src/modules/news/richTextFeatures.ts
 import {
   FixedToolbarFeature,
   InlineToolbarFeature,
@@ -13,9 +12,10 @@ import {
   HorizontalRuleFeature,
   IndentFeature,
   ParagraphFeature,
-  LinkFeature,
   AlignFeature
 } from '@payloadcms/richtext-lexical'
+import { CustomLinkFeature } from '../rich-text-features/customLink.feature'
+
 
 import { ImageWithCaption } from '../blocks/imageWithCaption.block'
 import { VideoBlock } from '../blocks/video.block'
@@ -42,5 +42,5 @@ export const customRichTextFeatures = () => [
   IndentFeature(),
   ParagraphFeature(),
   AlignFeature(),
-  LinkFeature()
+  CustomLinkFeature,
 ]
