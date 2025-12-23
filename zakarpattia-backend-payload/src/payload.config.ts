@@ -14,6 +14,10 @@ import { Users } from './modules/users/collections/Users'
 import { Media } from './modules/media/Media'
 import { News } from './modules/news/News'
 import { NewsCategories } from './modules/news/NewsCategories'
+import { Coaches } from './modules/coaches/Coaches'
+import { Contacts } from './modules/contacts/Contacts'
+import { About } from './modules/about/About'
+import { Logo, Icon } from './modules/shared/components/Logo'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -24,8 +28,21 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      graphics: {
+        Icon: {
+          path: './modules/shared/components/Logo.tsx',
+          exportName: 'Icon',
+        },
+        Logo: {
+          path: './modules/shared/components/Logo.tsx',
+          exportName: 'Logo',
+        },
+      },
+    },
   },
-  collections: [Users, Media, News, NewsCategories],
+  collections: [Users, Media, News, NewsCategories, Coaches],
+  globals: [Contacts, About],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
