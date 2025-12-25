@@ -17,7 +17,6 @@ import { NewsCategories } from './modules/news/NewsCategories'
 import { Coaches } from './modules/coaches/Coaches'
 import { Contacts } from './modules/contacts/Contacts'
 import { About } from './modules/about/About'
-import { Logo, Icon } from './modules/shared/components/Logo'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

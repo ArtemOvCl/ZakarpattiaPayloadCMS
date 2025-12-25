@@ -11,7 +11,7 @@ export const Coaches: CollectionConfig = {
   labels: { singular: 'Тренер', plural: 'Тренери' },
   admin: {
     useAsTitle: 'fullName',
-    defaultColumns: ['photo', 'fullName', 'createdAt'],
+    defaultColumns: ['fullName', 'photo', 'createdAt'],
   },
   access: { read: () => true },
   fields: [

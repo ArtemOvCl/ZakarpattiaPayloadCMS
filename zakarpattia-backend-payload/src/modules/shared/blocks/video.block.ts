@@ -3,8 +3,8 @@ import type { Block } from "payload";
 export const VideoBlock: Block = {
   slug: 'video',
   labels: {
-    singular: 'Відео',
-    plural: 'Відео',
+    singular: 'Ютуб відео',
+    plural: 'Ютуб відео',
   },
   admin: {
     disableBlockName: true
@@ -13,7 +13,7 @@ export const VideoBlock: Block = {
     {
       name: 'url',
       type: 'text',
-      label: 'Посилання на відео (YouTube, Vimeo тощо)',
+      label: 'Посилання на відео (YouTube)',
       required: true,
     },
   ],
