@@ -42,5 +42,5 @@ export const customRichTextFeatures = () => [
   IndentFeature(),
   ParagraphFeature(),
   AlignFeature(),
-  CustomLinkFeature,
+  CustomLinkFeature
 ]

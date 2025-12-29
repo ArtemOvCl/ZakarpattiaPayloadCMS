@@ -4,6 +4,10 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { customRichTextFeatures } from '../shared/configuration/custom-editor'
 import { generateSlug } from '../shared/hooks/slug.hook'
 
+import { TabIndentPlugin } from '../shared/rich-text-features/tabulation.feature'
+
+import { redirectPreviewUtil } from '../shared/utils/redirect-preview.util'
+
 const COACHES_SLUG = 'coaches'
 
 export const Coaches: CollectionConfig = {
@@ -12,8 +16,13 @@ export const Coaches: CollectionConfig = {
   admin: {
     useAsTitle: 'fullName',
     defaultColumns: ['fullName', 'photo', 'createdAt'],
+    preview: (doc) => redirectPreviewUtil(doc, '/coaches'),
   },
   access: { read: () => true },
+  versions: {
+    maxPerDoc: 1,
+    drafts: true,
+  },
   fields: [
     {
       name: 'photo',
