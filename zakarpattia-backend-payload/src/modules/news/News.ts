@@ -4,6 +4,7 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { customRichTextFeatures } from '../shared/configuration/custom-editor'
 import { generateSlug } from '../shared/hooks/slug.hook'
 import { enforceSingleFeatured } from './hooks/featured.hook'
+import { redirectPreviewUtil } from '../shared/utils/redirect-preview.util'
 
 const NEWS_SLUG = 'news'
 
@@ -13,6 +14,11 @@ export const News: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'featured', 'createdAt'],
+    preview: (doc)  => redirectPreviewUtil(doc, '/news'),
+  },
+  versions: {
+    maxPerDoc: 1,
+    drafts: true,
   },
   access: { read: () => true },
   hooks: {
