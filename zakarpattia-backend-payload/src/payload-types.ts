@@ -472,6 +472,7 @@ export interface About {
     };
     [k: string]: unknown;
   };
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -505,6 +506,7 @@ export interface ContactsSelect<T extends boolean = true> {
  */
 export interface AboutSelect<T extends boolean = true> {
   content?: T;
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

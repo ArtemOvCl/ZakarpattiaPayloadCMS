@@ -3,6 +3,8 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import { customRichTextFeatures } from '../shared/configuration/custom-editor'
 
+import { redirectPreviewUtil } from '../shared/utils/redirect-preview.util'
+
 const ABOUT_SLUG = 'about'
 
 export const About: GlobalConfig = {
@@ -10,6 +12,10 @@ export const About: GlobalConfig = {
   label: 'Про нас',
   admin: {
     description: 'Інформація про організацію',
+    preview: (doc) => redirectPreviewUtil(doc, '/about'),
+  },
+  versions: {
+    drafts: true,
   },
   access: { read: () => true },
   fields: [
