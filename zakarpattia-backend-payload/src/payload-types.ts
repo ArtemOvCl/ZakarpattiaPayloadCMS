@@ -435,17 +435,21 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Contact {
   id: string;
-  phones: {
-    phone: string;
-    contact?: string | null;
-    id?: string | null;
-  }[];
-  address: string;
-  emails: {
-    email: string;
-    contact?: string | null;
-    id?: string | null;
-  }[];
+  phones?:
+    | {
+        phone: string;
+        contact?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  address?: string | null;
+  emails?:
+    | {
+        email: string;
+        contact?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

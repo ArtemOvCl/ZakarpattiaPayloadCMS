@@ -14,7 +14,7 @@ export const Contacts: GlobalConfig = {
       name: 'phones',
       label: 'Номери телефонів',
       type: 'array',
-      required: true,
+      required: false,
       minRows: 1,
       fields: [
         {
@@ -35,13 +35,13 @@ export const Contacts: GlobalConfig = {
       name: 'address',
       label: 'Адреса',
       type: 'text',
-      required: true,
+      required: false,
     },
     {
       name: 'emails',
       label: 'Електронні пошти',
       type: 'array',
-      required: true,
+      required: false,
       minRows: 1,
       fields: [
         {

@@ -16,6 +16,7 @@ export const About: GlobalConfig = {
   },
   versions: {
     drafts: true,
+    max: 1
   },
   access: { read: () => true },
   fields: [

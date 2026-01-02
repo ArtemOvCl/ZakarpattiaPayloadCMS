@@ -1,6 +1,6 @@
 export const redirectPreviewUtil = (doc: any, redirectUrl?: string) => {
     const params = new URLSearchParams({
-      slug: String(doc.slug),
+      slug: String(doc.data.slug),
       previewSecret: process.env.PREVIEW_SECRET!,
       redirectUrl: redirectUrl || '/'
 

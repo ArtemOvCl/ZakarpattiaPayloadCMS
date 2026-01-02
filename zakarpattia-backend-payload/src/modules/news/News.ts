@@ -14,7 +14,7 @@ export const News: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'featured', 'createdAt'],
-    preview: (doc)  => redirectPreviewUtil(doc, '/news'),
+    preview: (doc) => redirectPreviewUtil(doc, '/news'),
   },
   versions: {
     maxPerDoc: 1,
