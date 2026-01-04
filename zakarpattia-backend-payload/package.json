@@ -19,6 +19,9 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "typescript": "^5.7.3",
+    "@types/react": "^19.1.8",
+    "@types/node": "^22.5.4",
     "@payloadcms/db-mongodb": "3.52.0",
     "@payloadcms/next": "3.52.0",
     "@payloadcms/payload-cloud": "3.52.0",
