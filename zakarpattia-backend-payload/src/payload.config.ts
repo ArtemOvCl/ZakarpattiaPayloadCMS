@@ -18,14 +18,19 @@ import { Coaches } from './modules/coaches/Coaches'
 import { Contacts } from './modules/contacts/Contacts'
 import { About } from './modules/about/About'
 
+import { r2Storage } from './modules/shared/storages/r2.storage'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const isProduction = process.env.NODE_ENV === 'production';
+console.log('Running in', isProduction ? 'production' : 'development', 'mode.');
 
 export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: {
-      baseDir: path.resolve(dirname),
+      baseDir: path.resolve(dirname)
     },
     components: {
       graphics: {
@@ -48,7 +53,7 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: mongooseAdapter({
-    url: process.env.DATABASE_URI || '',
+    url: isProduction ? process.env.DATABASE_URI_PROD || '' : process.env.DATABASE_URI_DEV || '',
   }),
   sharp,
   i18n: {
@@ -56,6 +61,7 @@ export default buildConfig({
     supportedLanguages: { uk, en },
   },
   plugins: [
-    payloadCloudPlugin()
+    payloadCloudPlugin(),
+    ...(isProduction ? [r2Storage] : [])
   ],
 })

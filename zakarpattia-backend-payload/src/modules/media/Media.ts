@@ -25,5 +25,15 @@ export const Media: CollectionConfig = {
       required: true,
     },
   ],
-  upload: true
+  hooks: {},
+  upload: {
+    resizeOptions: {
+      width: 1920,
+      fit: 'inside',
+    },
+
+    formatOptions: {
+      format: 'webp'
+    }
+  }
 }

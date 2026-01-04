@@ -14,7 +14,7 @@ export const Coaches: CollectionConfig = {
   admin: {
     useAsTitle: 'fullName',
     defaultColumns: ['fullName', 'photo', 'createdAt'],
-    preview: (doc) => redirectPreviewUtil(doc, `/coaches/${doc.slug}`),
+    preview: (doc) => redirectPreviewUtil(doc, `/coaches`),
   },
   access: { read: () => true },
   versions: {
