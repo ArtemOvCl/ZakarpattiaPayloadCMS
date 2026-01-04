@@ -34,7 +34,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
     "graphql": "^16.8.1",
-    "next": "15.4.4",
+    "next": "15.4.10",
     "payload": "3.52.0",
     "payload-plugin-lexical": "^0.6.6",
     "payload-webp": "^1.1.6",
