@@ -4,11 +4,12 @@ import { withPayload } from '@payloadcms/next/withPayload'
 const nextConfig = {
   // Your Next.js config here
   webpack: (webpackConfig) => {
+    webpackConfig.resolve.
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
       '.js': ['.ts', '.tsx', '.js', '.jsx'],
       '.mjs': ['.mts', '.mjs'],
-    }
+    } 
 
     return webpackConfig
   },
