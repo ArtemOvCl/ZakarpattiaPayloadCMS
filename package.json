@@ -1,1 +1,5 @@
-{}
+{
+  "devDependencies": {
+    "sst": "^3.17.25"
+  }
+}
