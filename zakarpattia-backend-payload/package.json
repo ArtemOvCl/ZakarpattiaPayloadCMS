@@ -19,9 +19,6 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
-    "typescript": "^5.7.3",
-    "@types/react": "^19.1.8",
-    "@types/node": "^22.5.4",
     "@payloadcms/db-mongodb": "3.52.0",
     "@payloadcms/next": "3.52.0",
     "@payloadcms/payload-cloud": "3.52.0",
@@ -30,38 +27,34 @@
     "@payloadcms/storage-s3": "^3.52.0",
     "@payloadcms/translations": "^3.52.0",
     "@payloadcms/ui": "3.52.0",
+    "@playwright/test": "1.54.1",
+    "@types/node": "^22.5.4",
+    "@types/react": "^19.1.8",
     "@types/react-dom": "19.1.6",
+    "@vitejs/plugin-react": "4.5.2",
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "15.4.4",
     "graphql": "^16.8.1",
     "next": "15.4.10",
     "payload": "3.52.0",
     "payload-plugin-lexical": "^0.6.6",
     "payload-webp": "^1.1.6",
+    "playwright": "1.54.1",
+    "playwright-core": "1.54.1",
     "react": "19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
-    "sharp": "0.34.2",
-    "eslint": "^9.16.0",
-    "eslint-config-next": "15.4.4",
-    "@playwright/test": "1.54.1",
-"playwright": "1.54.1",
-"playwright-core": "1.54.1",
-"vitest": "3.2.3",
-"@vitejs/plugin-react": "4.5.2",
-"vite-tsconfig-paths": "5.1.4"
-
-
-
-
+    "sharp": "^0.32.6",
+    "typescript": "^5.7.3",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.2.3"
   },
   "devDependencies": {
-
     "jsdom": "26.1.0",
-
     "prettier": "^3.4.2",
     "vite-tsconfig-paths": "5.1.4"
-
   },
   "engines": {
     "node": "^18.20.2 || >=20.9.0",
