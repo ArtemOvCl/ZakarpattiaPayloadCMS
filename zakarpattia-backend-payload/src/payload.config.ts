@@ -24,6 +24,8 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const isProduction = process.env.NODE_ENV === 'production';
+console.log('PAYLOAD SECRET:', process.env.PAYLOAD_SECRET)
+console.log('DATABASE URI:', isProduction ? process.env.DATABASE_URI_PROD : process.env.DATABASE_URI_DEV)
 console.log('Running in', isProduction ? 'production' : 'development', 'mode.');
 
 export default buildConfig({
