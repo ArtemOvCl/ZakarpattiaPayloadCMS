@@ -1,3 +1,23 @@
+Skip to content
+Navigation Menu
+ArtemOvCl
+ZakarpattiaPayloadCMS
+
+Type / to search
+Code
+Issues
+Pull requests
+Actions
+Projects
+Security
+Insights
+Settings
+Deploy Payload CMS to VPS
+Update deploy.yml #12
+All jobs
+Run details
+Workflow file for this run
+.github/workflows/deploy.yml at 4b4f6d2
 name: Deploy Payload CMS to VPS
 
 on:
@@ -42,10 +62,10 @@ jobs:
           rsync -az --delete \
             --exclude=node_modules \
             --exclude=.git \
+            --exclude=.env \
             -e "ssh -o StrictHostKeyChecking=no" \
             zakarpattia-backend-payload/ \
             ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
-
       # 7️⃣ PM2
       - name: Restart PM2
         run: |
