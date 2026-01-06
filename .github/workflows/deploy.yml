@@ -8,51 +8,58 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: VPS_HOST
 
     steps:
-      # 1️⃣ Забираємо код
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      # 1️⃣ Checkout
+      - uses: actions/checkout@v4
 
-      # 2️⃣ Встановлюємо Node (під твій engines)
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      # 2️⃣ Node
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: zakarpattia-backend-payload/package-lock.json
 
-      # 3️⃣ Встановлюємо залежності
-      - name: Install dependencies
+      # 3️⃣ Install
+      - name: Install deps
+        working-directory: zakarpattia-backend-payload
         run: npm install
 
-      # 4️⃣ БІЛДИМО ТУТ ❗
-      - name: Build project
+      # 4️⃣ Build
+      - name: Build
+        working-directory: zakarpattia-backend-payload
         run: npm run build
 
-      # 5️⃣ SSH-агент
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
+      # 5️⃣ SSH agent
+      - uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
 
-      # 6️⃣ Додаємо VPS у known_hosts
-      - name: Add VPS to known_hosts
-        run: |
-          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
-
-      # 7️⃣ Копіюємо ГОТОВИЙ код на VPS (БЕЗ node_modules)
-      - name: Upload build to VPS
+      # 6️⃣ Deploy (ТУТ ВСЕ ПРАВИЛЬНО)
+      - name: Upload to VPS
         run: |
           rsync -az --delete \
             --exclude=node_modules \
             --exclude=.git \
-            ./ \
+            --exclude=.env \
+            --exclude=text.tsx\
+            -e "ssh -o StrictHostKeyChecking=no" \
+            zakarpattia-backend-payload/ \
             ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
-
-      # 8️⃣ Рестарт PM2 (або старт якщо не існує)
+      - name: Check .env on VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+          ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "
+          cd ${{ secrets.VPS_PATH }} &&
+          echo '.env contents:' &&
+          cat .env
+          "
+      # 7️⃣ PM2
       - name: Restart PM2
         run: |
-          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "
-            cd ${{ secrets.VPS_PATH }} &&
-            pm2 restart zakarpattia-payload || pm2 start npm --name zakarpattia-payload -- start
-          "
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "
+              cd ${{ secrets.VPS_PATH }} &&
+              pm2 restart zakarpattia-payload || pm2 start npm --name zakarpattia-payload -- start
+            "
