@@ -42,6 +42,7 @@ jobs:
           rsync -az --delete \
             --exclude=node_modules \
             --exclude=.git \
+            --exclude=.env \
             -e "ssh -o StrictHostKeyChecking=no" \
             zakarpattia-backend-payload/ \
             ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
