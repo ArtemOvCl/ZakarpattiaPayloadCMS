@@ -43,9 +43,18 @@ jobs:
             --exclude=node_modules \
             --exclude=.git \
             --exclude=.env \
+            --exclude=text.tsx\
             -e "ssh -o StrictHostKeyChecking=no" \
             zakarpattia-backend-payload/ \
             ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
+      - name: Check .env on VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+          ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "
+          cd ${{ secrets.VPS_PATH }} &&
+          echo '.env contents:' &&
+          cat .env
+          "
       # 7️⃣ PM2
       - name: Restart PM2
         run: |
