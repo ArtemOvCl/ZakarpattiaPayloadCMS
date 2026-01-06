@@ -1,4 +1,4 @@
-name: Deploy to VPS
+name: Deploy Payload CMS to VPS
 
 on:
   push:
@@ -8,32 +8,51 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: VPS_HOST  # <- підключає environment secrets
 
     steps:
-      # 1️⃣ Клонування репозиторію на runner
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # 1️⃣ Забираємо код
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      # 2️⃣ Підключення SSH ключа
+      # 2️⃣ Встановлюємо Node (під твій engines)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # 3️⃣ Встановлюємо залежності
+      - name: Install dependencies
+        run: npm install
+
+      # 4️⃣ БІЛДИМО ТУТ ❗
+      - name: Build project
+        run: npm run build
+
+      # 5️⃣ SSH-агент
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
 
-      # 3️⃣ Перевірка секретів
-      - name: Check secrets
+      # 6️⃣ Додаємо VPS у known_hosts
+      - name: Add VPS to known_hosts
         run: |
-          echo "VPS_HOST: ${{ secrets.VPS_HOST }}"
-          echo "VPS_USERNAME: ${{ secrets.VPS_USERNAME }}"
-          echo "VPS_PATH: '${{ secrets.VPS_PATH }}'"
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
-      # 4️⃣ Деплой на VPS
-      - name: Deploy to VPS
+      # 7️⃣ Копіюємо ГОТОВИЙ код на VPS (БЕЗ node_modules)
+      - name: Upload build to VPS
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "
-            cd '${{ secrets.VPS_PATH }}' &&
-            git pull &&
-            npm install &&
-            npm run build
+          rsync -az --delete \
+            --exclude=node_modules \
+            --exclude=.git \
+            ./ \
+            ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
+
+      # 8️⃣ Рестарт PM2 (або старт якщо не існує)
+      - name: Restart PM2
+        run: |
+          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "
+            cd ${{ secrets.VPS_PATH }} &&
+            pm2 restart zakarpattia-payload || pm2 start npm --name zakarpattia-payload -- start
           "
