@@ -42,13 +42,15 @@ jobs:
           ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
 
       # 7️⃣ КОПІЮЄМО ГОТОВИЙ БІЛД
-      - name: Upload build to VPS
+      - name: Upload to VPS
         run: |
           rsync -az --delete \
-            --exclude=node_modules \
-            --exclude=.git \
-            zakarpattia-backend-payload/ \
-            ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
+          --exclude=node_modules \
+          --exclude=.git \
+          -e "ssh -o StrictHostKeyChecking=no" \
+          zakarpattia-backend-payload/ \
+          ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_PATH }}
+
 
       # 8️⃣ PM2 restart / start
       - name: Restart PM2
