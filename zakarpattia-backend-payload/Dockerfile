@@ -36,7 +36,7 @@ RUN \
   elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
   else echo "Lockfile not found." && exit 1; \
   fi
-
+ 
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
