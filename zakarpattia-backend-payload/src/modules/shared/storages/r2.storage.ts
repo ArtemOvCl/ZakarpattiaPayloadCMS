@@ -2,13 +2,7 @@ import { s3Storage } from '@payloadcms/storage-s3'
 
 export const r2Storage = s3Storage({
     collections: {
-        media: {
-            disableLocalStorage: true,
-            prefix: 'media/',
-            generateFileURL: (file) => {
-                return `https://${process.env.R2_ENDPOINT}.${process.env.R2_BUCKET}/${file.filename}`
-            },
-        }
+        media: true
     },
     bucket: process.env.R2_BUCKET!,  
     config: {

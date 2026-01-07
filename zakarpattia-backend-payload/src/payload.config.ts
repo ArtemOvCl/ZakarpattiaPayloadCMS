@@ -29,6 +29,7 @@ console.log('DATABASE URI:', isProduction ? process.env.DATABASE_URI_PROD : proc
 console.log('Running in', isProduction ? 'production' : 'development', 'mode.');
 
 export default buildConfig({
+  cors: [process.env.FRONTEND_URL!],
   admin: {
     user: Users.slug,
     importMap: {
@@ -66,4 +67,5 @@ export default buildConfig({
     payloadCloudPlugin(),
     ...(isProduction ? [r2Storage] : [])
   ],
+  
 })
